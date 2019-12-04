@@ -1,0 +1,37 @@
+20. Valid Parentheses
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Valid Parentheses.
+Memory Usage: 8.4 MB, less than 96.90% of C++ online submissions for Valid Parentheses.
+
+class Solution {
+public:
+    bool isValid(string s) {
+        if (s.empty()) return true;
+        stack<char> st;  
+        if (s[0] == ')' || s[0] == '}' || s[0] == ']') return false;
+        else if (s.back() == '(' || s.back() == '{' || s.back() == '[') return false;
+        int size = s.size();
+        for (int i = 0; i < size; ++i) {
+            if (s[i] == '(' || s[i] == '{' || s[i] == '[') st.push(s[i]);
+            else {
+                if (st.empty()) return false;
+                else {
+                    if (s[i] == ')') {
+                        char c = st.top();
+                        st.pop();
+                        if (c != '(') return false;
+                    } else if (s[i] == '}') {
+                        char c = st.top();
+                        st.pop();
+                        if (c != '{') return false;
+                    } else {
+                        char c = st.top();
+                        st.pop();
+                        if (c != '[') return false;
+                    }
+                }
+            }        
+        }
+        return st.empty();
+    }
+};

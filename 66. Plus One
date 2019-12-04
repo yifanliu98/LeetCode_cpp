@@ -1,0 +1,28 @@
+66. Plus One
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Plus One.
+Memory Usage: 8.6 MB, less than 91.80% of C++ online submissions for Plus One.
+
+```
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int carry = 1;
+        vector<int> answer = digits;
+        std::vector<int>::iterator begin = answer.begin();
+        for (std::vector<int>::iterator iter = answer.end()-1; iter >= begin; --iter) {
+            *iter += carry;
+            if (*iter >= 10) {
+                *iter -= 10;
+                carry = 1;
+            } else carry = 0;
+        }
+        if (carry == 1) {
+            answer.insert(begin, 1, 1);
+            return answer;
+        }
+        else return answer;
+        
+    }
+};
+```

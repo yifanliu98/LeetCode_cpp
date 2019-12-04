@@ -1,0 +1,56 @@
+2. Add Two Numbers
+
+Runtime: 16 ms, faster than 97.84% of C++ online submissions for Add Two Numbers.
+Memory Usage: 10.4 MB, less than 57.14% of C++ online submissions for Add Two Numbers.
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry = l1->val + l2->val;
+        ListNode* total = new ListNode(carry % 10);
+        ListNode* result = total;
+        ListNode* num1 = l1->next;
+        ListNode* num2 = l2->next;
+        carry /= 10;
+        while (true) {
+            if (num1 == NULL) {
+                num1 = num2;
+                break;
+            } else if (num2 == NULL) break;
+            else {
+                carry = num1->val + num2->val + carry;
+                result->next = new ListNode(carry % 10);
+                result = result->next;
+                carry /= 10;
+                num1 = num1->next;
+                num2 = num2->next;
+            }  
+        }
+        if (num1 != NULL) {
+            while (num1 != NULL) {
+                if (carry == 1) {
+                    carry += num1->val;
+                    result->next = new ListNode(carry%10);
+                    carry /= 10;                    
+                } else break;
+                num1 = num1->next;
+                result = result->next;
+            }
+            while (num1 != NULL) {
+                result->next = new ListNode(num1->val);
+                num1 = num1->next;
+                result = result->next;
+            }
+        }
+        if (carry == 1) result->next = new ListNode(1);
+        return total;
+    }
+};

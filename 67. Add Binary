@@ -1,0 +1,35 @@
+67. Add Binary
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Add Binary.
+Memory Usage: 8.5 MB, less than 94.55% of C++ online submissions for Add Binary.
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int sizea = a.size(), sizeb = b.size();
+        if (sizea < sizeb) {
+            swap(a, b);
+            swap(sizea, sizeb);
+        }
+        int diff = sizea - sizeb;
+        string sum = a;
+        
+        int carry = 0;
+        for (int i = sizea-1; i >= 0; --i) {
+            int ib = i - diff;
+            if (ib >= 0 && b[ib] == '1') sum[i]++;
+            if (sum[i] == '1') {
+                if (carry == 1) sum[i] = '0';
+            } else if (sum[i] == '2') {
+                sum[i] = '0' + carry;
+                carry = 1;                
+            } else {
+                sum[i] = '0' + carry;
+                carry = 0;
+            }
+        }
+        
+        if (carry == 1) return '1' + sum;
+        else return sum;
+    }
+};
