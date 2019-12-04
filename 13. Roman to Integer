@@ -1,0 +1,35 @@
+13. Roman to Integer
+
+
+// using ordered_map ( need more memmory usage )
+
+Runtime: 28 ms, faster than 13.93% of C++ online submissions for Roman to Integer.
+Memory Usage: 11.3 MB, less than 14.71% of C++ online submissions for Roman to Integer.
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        if (s.empty()) return 0;
+        unordered_map <char, int> symbol;
+        symbol['I'] = 1;
+        symbol['V'] = 5;
+        symbol['X'] = 10;
+        symbol['L'] = 50;
+        symbol['C'] = 100;
+        symbol['D'] = 500;
+        symbol['M'] = 1000;
+        int number = 0;
+        int size = s.size(), i = 0;
+        for ( ; i < size - 1; i++) {
+            int current = symbol[s[i]];
+            int next = symbol[s[i+1]];
+            if (current < next) {
+                number += (next - current);
+                i++;
+            }
+            else number += current;
+        }
+        if (i == size) return number;
+        else return number + symbol[s[size-1]];
+    }
+};
